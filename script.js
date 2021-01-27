@@ -5,8 +5,9 @@ canvas.style.border = '2px solid black'
 let intervalID = 0
 let score = 0;
 
-// Splash = document.querySelector(."splash")
-// Splash.style.display = ""
+// let splash = document.querySelector("#startScreen")
+// let gameOver = document.querySelector("#endScreen")
+// let playBtn = document.querySelector()
 
 // Background
 let backImg1 = document.createElement('img')
@@ -67,7 +68,7 @@ function Meteors() {
 for(let i=0; i<meteors.length  ; i++) {
     let meteorImg = meteorImgs[Math.floor(Math.random()* meteorImgs.length)] 
     ctx.drawImage(meteors[i].img, meteors[i].x, meteors[i].y)
-    // meteors[i].y++
+    meteors[i].y++
 
     if (meteors[i].y == 50) {
         meteors.push({

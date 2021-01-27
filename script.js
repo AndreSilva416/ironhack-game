@@ -67,7 +67,7 @@ function Meteors() {
 for(let i=0; i<meteors.length  ; i++) {
     let meteorImg = meteorImgs[Math.floor(Math.random()* meteorImgs.length)] 
     ctx.drawImage(meteors[i].img, meteors[i].x, meteors[i].y)
-    meteors[i].y++
+    // meteors[i].y++
 
     if (meteors[i].y == 50) {
         meteors.push({

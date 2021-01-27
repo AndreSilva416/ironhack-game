@@ -53,13 +53,11 @@ Definition of the different states and their transition (transition functions)
 
 ## Links
 
-### Trello
-[Link url]()
 
 ### Git
 URls for the project repo and deploy
 [Link Repo]()
-[Link Deploy]()
+[Link Deploy](https://andresilva416.github.io/ironhack-game/)
 
 ### Slides
 URls for the project presentation (slides)

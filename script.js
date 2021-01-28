@@ -61,7 +61,6 @@ function Player() {
 
 
 function Meteors() {
-    
 for(let i=0; i<meteors.length  ; i++) {
     let meteorImg = meteorImgs[Math.floor(Math.random()* meteorImgs.length)] 
     ctx.drawImage(meteors[i].img, meteors[i].x, meteors[i].y)
@@ -75,13 +74,18 @@ for(let i=0; i<meteors.length  ; i++) {
         })
     }
     
+    if (meteors[i].y > canvas.height && meteors[i].y > 0) {
+        meteors.splice(i, 1)
+    }
     Collision(i);
  }
 }
 
 function Collision(i) {
-    if(meteors[i].y + meteors[i].img.height >= playerY && ((playerX <= meteors[i].x && playerX + playerWidth >= meteors[i].x) || (playerX <= meteors[i].x + meteors[i].img.width && playerX >= meteors[i].x)) ){
-        gameOver();
+    if(meteors[i].y + meteors[i].img.height >= playerY &&
+        ( meteors[i].y > 0 && (playerX <= meteors[i].x && playerX + playerWidth >= meteors[i].x) || (playerX <= meteors[i].x + meteors[i].img.width && playerX >= meteors[i].x)) ){
+        meteors.splice(i,1)
+        gameOver()
  }
 }
 
@@ -111,7 +115,7 @@ function gameStart() {
     audio.play();
     intervalID = setInterval(() => {
         requestAnimationFrame(draw)  
-       }, 7)
+       }, 8)
 }
 
 
@@ -121,7 +125,7 @@ function gameOver() {
     clearInterval(intervalID)
     audio.pause(); 
     playerX = 250
-    meteors = [{x:0 , y:canvas.width - 900, img: meteor1}]
+    meteors = [{x:50 , y: -200, img: meteor1}]
 }
 
 

@@ -5,15 +5,11 @@ canvas.style.border = '2px solid black'
 let intervalID = 0
 let score = 0;
 
-// let splash = document.querySelector("#startScreen")
-// let gameOver = document.querySelector("#endScreen")
-// let playBtn = document.querySelector()
 
 // Background
 let backImg1 = document.createElement('img')
 backImg1.src = 'images/sky.jpg'
-// let backImg2 = document.createElement('img')
-// backImg2.src = ''
+let audio = new Audio ('music/music.wav')
 
 //Meteors
 let player = document.createElement('img')
@@ -34,6 +30,7 @@ let isLeftArrow = false;
 let isRightArrow = false
 let incrementPlayer = 5;
 let playerX = 250
+let playerY = 750;
 let playerWidth = 100
 
 
@@ -59,7 +56,7 @@ function background(){
 }
 
 function Player() {   
-    ctx.drawImage(player, playerX, 750)
+    ctx.drawImage(player, playerX, playerY)
   }
 
 
@@ -68,7 +65,7 @@ function Meteors() {
 for(let i=0; i<meteors.length  ; i++) {
     let meteorImg = meteorImgs[Math.floor(Math.random()* meteorImgs.length)] 
     ctx.drawImage(meteors[i].img, meteors[i].x, meteors[i].y)
-    meteors[i].y++
+    meteors[i].y += 5
 
     if (meteors[i].y == 50) {
         meteors.push({
@@ -78,18 +75,24 @@ for(let i=0; i<meteors.length  ; i++) {
         })
     }
     
-    
+    Collision(i);
  }
 }
 
-//function Collision() {
+function Collision(i) {
+    if(meteors[i].y + meteors[i].img.height >= playerY && ((playerX <= meteors[i].x && playerX + playerWidth >= meteors[i].x) || (playerX <= meteors[i].x + meteors[i].img.width && playerX >= meteors[i].x)) ){
+        gameOver();
+ }
+}
 
-//}
+
+
 
 function draw() {
   background()
   Player()
   Meteors()  
+ audio.volume = 0.1
 
   if (isRightArrow && (playerX + playerWidth < canvas.width)){
       playerX += incrementPlayer
@@ -98,8 +101,27 @@ function draw() {
       playerX -= incrementPlayer
   }
 
-  
 
+}
+
+function gameStart() {
+    document.getElementById("divStart").style.display="none";
+    document.getElementById("myCanvas").style.display= "";
+    document.getElementById("divEnd").style.display="none";
+    audio.play();
+    intervalID = setInterval(() => {
+        requestAnimationFrame(draw)  
+       }, 7)
+}
+
+
+function gameOver() {
+    document.getElementById("divEnd").style.display="block";
+    document.getElementById("myCanvas").style.display= "none";
+    clearInterval(intervalID)
+    audio.pause(); 
+    playerX = 250
+    meteors = [{x:0 , y:canvas.width - 900, img: meteor1}]
 }
 
 
@@ -107,8 +129,3 @@ function draw() {
 
 
 
-window.addEventListener('load', () => {
-    intervalID = setInterval(() => {
-      requestAnimationFrame(draw)  
-     }, 10)
-})

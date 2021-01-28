@@ -67,6 +67,7 @@ for(let i=0; i<meteors.length  ; i++) {
     meteors[i].y += 5
 
     if (meteors[i].y == 50) {
+        score++
         meteors.push({
             x: Math.floor(Math.random()* canvas.width - 50),
             y: canvas.width - 900,
@@ -96,7 +97,8 @@ function draw() {
   background()
   Player()
   Meteors()  
- audio.volume = 0.1
+ audio.volume = 0.2
+ audio.loop = true
 
   if (isRightArrow && (playerX + playerWidth < canvas.width)){
       playerX += incrementPlayer
@@ -115,7 +117,7 @@ function gameStart() {
     audio.play();
     intervalID = setInterval(() => {
         requestAnimationFrame(draw)  
-       }, 8)
+       }, 7)
 }
 
 
